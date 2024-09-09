@@ -13,7 +13,7 @@ class MoneroMetricsPlugin(BasePlugin):
     metrics_data: dict = {}
 
     config_scheme = (
-        ('endpoints', config_options.Type(list, default=['http://localhost:9123/metrics'])),
+        ('endpoints', config_options.Type(list, default=[])),
         ('time_format', config_options.Type(str, default='%Y-%m-%d %H:%M:%S')),  # Default time format
         ('defaults', config_options.Type(dict, default={})),  # default fallback values
     )
