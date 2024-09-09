@@ -67,4 +67,4 @@ If you want to provide metrics, let me know and I will add it here.
 
 I don't give a crap as long no criminal organization a.k.a. governmental organization or employee uses it,
 only for that purpose I add the [BipCot NoGov Software](https://www.bipcot.org) [License](LICENSE.txt). So
-if you don't initiate aggretion feel free to use this piece of source for whatever you want.
+if you don't initiate aggression feel free to use this piece of source for whatever you want.
