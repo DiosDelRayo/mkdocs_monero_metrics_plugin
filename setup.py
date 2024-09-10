@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='mkdocs-monero-metrics-plugin',
-    version='0.1',
+    version='0.2',
     py_modules=['mkdocs_monero_metrics_plugin'],
     install_requires=[
         'mkdocs',

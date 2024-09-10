@@ -3,9 +3,12 @@ from re import match as re_match
 from mkdocs.plugins import BasePlugin
 from mkdocs.config import config_options
 from datetime import datetime
+from jinja2 import Template
 from jinja2.environment import Environment
+from mkdocs.utils.templates import TemplateContext
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.structure.files import Files
+from mkdocs.structure.pages import Page
 
 
 class MoneroMetricsPlugin(BasePlugin):
@@ -18,17 +21,17 @@ class MoneroMetricsPlugin(BasePlugin):
         ('defaults', config_options.Type(dict, default={})),  # default fallback values
     )
 
-    def __init__(self):
-        super().__init__()
-        self.metrics_data = {key: value for key, value in self.config['defaults'].items if key.startswith('monero_'}
-
     # Collect metrics
     def on_pre_build(self, config: MkDocsConfig):
+        self.metrics_data = {key: value for key, value in self.config['defaults'].items() if key.startswith('monero_')}
         self.metrics_data.update(self.collect_metrics())
 
     # Inject metrics into the jinja2 template globals
     def on_env(self, env: Environment, config: MkDocsConfig, files: Files):
         env.globals.update(self.metrics_data)
+
+    def on_page_markdown(self, markdown: str, page: Page, config: MkDocsConfig, files: Files) -> str:
+        return Template(markdown).render(self.metrics_data)
 
     def collect_metrics(self) -> dict[str, str | float | int]:
         all_metrics = {}
@@ -52,7 +55,7 @@ class MoneroMetricsPlugin(BasePlugin):
                 metrics[key] = self.format_metric(key, value)
         return metrics
 
-    def format_metric(self, key: str, value: float) -> string | float | int:
+    def format_metric(self, key: str, value: float) -> str | float | int:
         if key.endswith('_timestamp') or key.endswith('_file_last_update'):
             return datetime.utcfromtimestamp(value).strftime(self.config['time_format'])
         if key.endswith('_file_size'):
