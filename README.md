@@ -29,7 +29,7 @@ plugins:
         monero_main_block_timestamp: "2024-09-09 11:50:21"
 ```
 
-- endpoints: You add as may endpoints as needed or preferred.
+- endpoints: You can add as may endpoints as needed or preferred.
 - time_format: (optional) How to convert unix timestamps
 - defaults: set defaults for your used metrics, you can also abuse it to set static values, but
   they need to be prefixed with `monero_`. So you can set e.g. `monero_url: "https://getmonero.org"`
